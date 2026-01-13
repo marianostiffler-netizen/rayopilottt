@@ -44,11 +44,11 @@ export default function Home() {
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <circle cx="20" cy="20" r="1" fill="#FFD700" opacity="0.3"/>
-              <path d="M20 0 L20 40 M0 20 L40 20" stroke="#FFD700" strokeWidth="0.5" opacity="0.2"/>
+              <circle cx="20" cy="20" r="1" fill="#FFD700" opacity="0.3" style={{filter: 'drop-shadow(0 0 3px #FFD700)'}}/>
+              <path d="M20 0 L20 40 M0 20 L40 20" stroke="#FFD700" strokeWidth="0.5" opacity="0.2" style={{filter: 'drop-shadow(0 0 2px #FFD700)'}}/>
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
+          <rect width="100%" height="100%" fill="url(#grid)" style={{filter: 'drop-shadow(0 0 4px #FFD700)'}} />
         </svg>
         
         {/* Efecto de rayos cinéticos */}
@@ -89,25 +89,11 @@ export default function Home() {
       {/* Header */}
       <header className="relative z-10 flex justify-between items-center p-6">
         <div className="flex items-center gap-2">
-          {/* Logo animado de Rayo con brillo neon */}
-          <svg 
-            className="w-10 h-10 text-yellow-500 animate-pulse" 
-            fill="currentColor" 
-            viewBox="0 0 24 24"
-            style={{
-              filter: 'drop-shadow(0 0 8px #FFD700) drop-shadow(0 0 16px #FFD700)'
-            }}
-          >
+          {/* Logo animado de Rayo */}
+          <svg className="w-10 h-10 text-yellow-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
           </svg>
-          <span 
-            className="text-2xl font-bold text-yellow-500"
-            style={{
-              filter: 'drop-shadow(0 0 4px #FFD700) drop-shadow(0 0 8px #FFD700)'
-            }}
-          >
-            Rayo
-          </span>
+          <span className="text-2xl font-bold text-yellow-500">Rayo</span>
         </div>
         <button className="px-6 py-2 border border-yellow-500 text-yellow-500 rounded-full hover:bg-yellow-500 hover:text-black transition-all duration-300">
           Coordinar Envío
@@ -136,12 +122,7 @@ export default function Home() {
           
           <div className="mb-6">
             <label className="block text-gray-300 mb-3">
-              Distancia: <span 
-                className="text-yellow-500 font-bold"
-                style={{
-                  filter: 'drop-shadow(0 0 4px #FFD700) drop-shadow(0 0 8px #FFD700)'
-                }}
-              >{distance} km</span>
+              Distancia: <span className="text-yellow-500 font-bold">{distance} km</span>
             </label>
             <input
               type="range"
@@ -162,11 +143,7 @@ export default function Home() {
 
           <div className="text-center">
             <p className="text-gray-400 mb-2">Precio estimado:</p>
-            <p className="text-4xl font-bold text-yellow-500 transition-all duration-300"
-               style={{
-                 filter: 'drop-shadow(0 0 6px #FFD700) drop-shadow(0 0 12px #FFD700)'
-               }}
-            >
+            <p className="text-4xl font-bold text-yellow-500 transition-all duration-300">
               ${price.toLocaleString()}
             </p>
           </div>
@@ -202,7 +179,7 @@ export default function Home() {
 
       {/* Botón flotante de WhatsApp */}
       <a
-        href="https://wa.me/5493411234567?text=Hola!%20Quiero%20coordinar%20un%20envío"
+        href="https://wa.me/5493417537034?text=Hola%20Rayo,%20quiero%20coordinar%20un%20envío"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-full shadow-lg backdrop-blur-sm flex items-center gap-2 transition-all duration-300 hover:scale-105 z-20"
