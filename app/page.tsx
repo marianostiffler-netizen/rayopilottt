@@ -7,9 +7,15 @@ export default function Home() {
   const [lightningBolts, setLightningBolts] = useState<Array<{id: number, x: number, y: number, angle: number, length: number}>>([]);
   
   const calculatePrice = (dist: number) => {
-    if (dist <= 5) return 2500;
-    if (dist <= 10) return 4000;
-    return 6000;
+    if (dist <= 3) return 3500;
+    if (dist <= 5) return 4300;
+    if (dist <= 7) return 5100;
+    if (dist <= 9) return 6000;
+    if (dist <= 11) return 6800;
+    if (dist <= 13) return 7600;
+    if (dist <= 15) return 8200;
+    if (dist <= 17) return 9000;
+    return 10000;
   };
 
   const price = calculatePrice(distance);
@@ -127,17 +133,17 @@ export default function Home() {
             <input
               type="range"
               min="1"
-              max="15"
+              max="20"
               value={distance}
               onChange={(e) => setDistance(Number(e.target.value))}
               className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
               style={{
-                background: `linear-gradient(to right, #FFD700 0%, #FFD700 ${(distance / 15) * 100}%, #374151 ${(distance / 15) * 100}%, #374151 100%)`
+                background: `linear-gradient(to right, #FFD700 0%, #FFD700 ${(distance / 20) * 100}%, #374151 ${(distance / 20) * 100}%, #374151 100%)`
               }}
             />
             <div className="flex justify-between text-xs text-gray-400 mt-2">
               <span>1km</span>
-              <span>15km</span>
+              <span>20km</span>
             </div>
           </div>
 
@@ -151,29 +157,44 @@ export default function Home() {
 
         {/* Sección de Servicios */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl w-full mb-12">
-          <div className="bg-black/30 backdrop-blur border border-yellow-500/20 rounded-xl p-6 text-center hover:border-yellow-500/50 transition-all duration-300">
+          <a
+            href="https://wa.me/5493417537034?text=Hola%20Rayo,%20necesito%20realizar%20una%20mensajer%C3%ADa%20urgente."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-black/30 backdrop-blur border border-yellow-500/20 rounded-xl p-6 text-center hover:border-yellow-500/50 transition-all duration-300 cursor-pointer hover:bg-black/40"
+          >
             <svg className="w-12 h-12 text-yellow-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
             <h3 className="text-xl font-semibold text-yellow-500 mb-2">Mensajería</h3>
             <p className="text-gray-400">Entregas urgentes en minutos</p>
-          </div>
+          </a>
           
-          <div className="bg-black/30 backdrop-blur border border-yellow-500/20 rounded-xl p-6 text-center hover:border-yellow-500/50 transition-all duration-300">
+          <a
+            href="https://wa.me/5493417537034?text=Hola%20Rayo,%20necesito%20enviar%20un%20paquete."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-black/30 backdrop-blur border border-yellow-500/20 rounded-xl p-6 text-center hover:border-yellow-500/50 transition-all duration-300 cursor-pointer hover:bg-black/40"
+          >
             <svg className="w-12 h-12 text-yellow-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
             </svg>
             <h3 className="text-xl font-semibold text-yellow-500 mb-2">Paquetería</h3>
             <p className="text-gray-400">Paquetes seguros y rápidos</p>
-          </div>
+          </a>
           
-          <div className="bg-black/30 backdrop-blur border border-yellow-500/20 rounded-xl p-6 text-center hover:border-yellow-500/50 transition-all duration-300">
+          <a
+            href="https://wa.me/5493417537034?text=Hola%20Rayo,%20necesito%20realizar%20un%20tr%C3%A1mite%20administrativo."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-black/30 backdrop-blur border border-yellow-500/20 rounded-xl p-6 text-center hover:border-yellow-500/50 transition-all duration-300 cursor-pointer hover:bg-black/40"
+          >
             <svg className="w-12 h-12 text-yellow-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             <h3 className="text-xl font-semibold text-yellow-500 mb-2">Trámites</h3>
             <p className="text-gray-400">Gestión documental rápida</p>
-          </div>
+          </a>
         </div>
       </main>
 
