@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [distance, setDistance] = useState(5);
+  const [lightningBolts, setLightningBolts] = useState<Array<{id: number, x: number, y: number, angle: number, length: number}>>([]);
   
   const calculatePrice = (dist: number) => {
     if (dist <= 5) return 2500;
@@ -12,6 +13,28 @@ export default function Home() {
   };
 
   const price = calculatePrice(distance);
+
+  // Efecto de rayos cinéticos
+  useEffect(() => {
+    const generateLightning = () => {
+      const newBolt = {
+        id: Date.now() + Math.random(),
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        angle: Math.random() * 360,
+        length: 20 + Math.random() * 40
+      };
+      
+      setLightningBolts(prev => [...prev.slice(-8), newBolt]);
+      
+      setTimeout(() => {
+        setLightningBolts(prev => prev.filter(bolt => bolt.id !== newBolt.id));
+      }, 800 + Math.random() * 1200);
+    };
+
+    const interval = setInterval(generateLightning, 200 + Math.random() * 300);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white relative overflow-hidden">
@@ -27,16 +50,64 @@ export default function Home() {
           </defs>
           <rect width="100%" height="100%" fill="url(#grid)" />
         </svg>
+        
+        {/* Efecto de rayos cinéticos */}
+        {lightningBolts.map(bolt => (
+          <div
+            key={bolt.id}
+            className="absolute animate-pulse"
+            style={{
+              left: `${bolt.x}%`,
+              top: `${bolt.y}%`,
+              transform: `rotate(${bolt.angle}deg)`,
+              transformOrigin: 'center'
+            }}
+          >
+            <svg 
+              width={bolt.length} 
+              height="2" 
+              className="animate-ping"
+              style={{
+                filter: 'drop-shadow(0 0 6px #FFD700) drop-shadow(0 0 12px #FFD700)',
+                animation: 'lightningFlash 0.8s ease-out forwards'
+              }}
+            >
+              <line 
+                x1="0" 
+                y1="1" 
+                x2={bolt.length} 
+                y2="1" 
+                stroke="#FFD700" 
+                strokeWidth="0.5" 
+                opacity="0.8"
+              />
+            </svg>
+          </div>
+        ))}
       </div>
 
       {/* Header */}
       <header className="relative z-10 flex justify-between items-center p-6">
         <div className="flex items-center gap-2">
-          {/* Logo animado de Rayo */}
-          <svg className="w-10 h-10 text-yellow-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+          {/* Logo animado de Rayo con brillo neon */}
+          <svg 
+            className="w-10 h-10 text-yellow-500 animate-pulse" 
+            fill="currentColor" 
+            viewBox="0 0 24 24"
+            style={{
+              filter: 'drop-shadow(0 0 8px #FFD700) drop-shadow(0 0 16px #FFD700)'
+            }}
+          >
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
           </svg>
-          <span className="text-2xl font-bold text-yellow-500">Rayo</span>
+          <span 
+            className="text-2xl font-bold text-yellow-500"
+            style={{
+              filter: 'drop-shadow(0 0 4px #FFD700) drop-shadow(0 0 8px #FFD700)'
+            }}
+          >
+            Rayo
+          </span>
         </div>
         <button className="px-6 py-2 border border-yellow-500 text-yellow-500 rounded-full hover:bg-yellow-500 hover:text-black transition-all duration-300">
           Coordinar Envío
@@ -65,7 +136,12 @@ export default function Home() {
           
           <div className="mb-6">
             <label className="block text-gray-300 mb-3">
-              Distancia: <span className="text-yellow-500 font-bold">{distance} km</span>
+              Distancia: <span 
+                className="text-yellow-500 font-bold"
+                style={{
+                  filter: 'drop-shadow(0 0 4px #FFD700) drop-shadow(0 0 8px #FFD700)'
+                }}
+              >{distance} km</span>
             </label>
             <input
               type="range"
@@ -86,7 +162,11 @@ export default function Home() {
 
           <div className="text-center">
             <p className="text-gray-400 mb-2">Precio estimado:</p>
-            <p className="text-4xl font-bold text-yellow-500 transition-all duration-300">
+            <p className="text-4xl font-bold text-yellow-500 transition-all duration-300"
+               style={{
+                 filter: 'drop-shadow(0 0 6px #FFD700) drop-shadow(0 0 12px #FFD700)'
+               }}
+            >
               ${price.toLocaleString()}
             </p>
           </div>
@@ -134,6 +214,33 @@ export default function Home() {
       </a>
 
       <style jsx>{`
+        @keyframes lightningFlash {
+          0% {
+            opacity: 0;
+            transform: scaleX(0.5);
+          }
+          20% {
+            opacity: 1;
+            transform: scaleX(1.2);
+          }
+          40% {
+            opacity: 0.8;
+            transform: scaleX(0.9);
+          }
+          60% {
+            opacity: 1;
+            transform: scaleX(1.1);
+          }
+          80% {
+            opacity: 0.6;
+            transform: scaleX(0.95);
+          }
+          100% {
+            opacity: 0;
+            transform: scaleX(0.3);
+          }
+        }
+        
         .slider::-webkit-slider-thumb {
           appearance: none;
           width: 20px;
